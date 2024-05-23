@@ -60,6 +60,7 @@ export class TransferFundsComponent implements OnInit{
     const amount = parseFloat(this.amount);
 
     console.log(destinationAccountId)
+    console.log(sourceAccountId)
     
     console.log(this.account.balance)
     const balance = this.account.balance;

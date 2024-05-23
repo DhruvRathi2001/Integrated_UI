@@ -5,6 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { CustomersApiService } from '../CustomerService/customer-service.service';
 import {  HttpHeaders } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
+import { NgxSpinnerService } from 'ngx-spinner';
 
 @Component({
   selector: 'app-customer-view-profile',
@@ -16,16 +17,23 @@ export class CustomerViewProfileComponent {
   showDeleteConfirmation = false;
   message: string | null = null;
 
-  constructor(private http: HttpClient, private router: Router, private apiService: CustomersApiService) {
+  constructor(private http: HttpClient, private router: Router, private apiService: CustomersApiService,
+              private Spinner:NgxSpinnerService
+  ) {
     this.loadCustomerDetails();
   }
 
   loadCustomerDetails(): void {
+    this.Spinner.show();
     const customerId = window.sessionStorage.getItem("customerId");
     if (customerId) {
       this.apiService.getDetails(+customerId).subscribe(
         data => {
           this.CustomerDetails = data;
+          while(this.CustomerDetails.customerId==null){
+         
+          }
+          this.Spinner.hide();
         },
         error => {
           console.error('Failed to load customer details', error);

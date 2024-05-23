@@ -63,4 +63,6 @@
   .footer .row.mt-4 p a:hover {
     text-decoration: underline;
   }
-  
+  .social-list{
+    margin-left: 38%;
+  }
