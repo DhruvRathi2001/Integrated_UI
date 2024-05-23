@@ -26,6 +26,7 @@ import { ManagerViewEnquiryComponent } from './ManagerHome/manager-view-enquiry.
 import { ManagerHomeComponent } from './ManagerHome/manager-home.component';
 import { TransferFundsComponent } from './TransactionFundTransfer/transfer-funds.component';
 import { AuthGuard } from './CustomerService/auth.guard';
+import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
 
 
 
@@ -38,14 +39,14 @@ const routes: Routes = [
   { path: 'enquirer-home', component: EnquiryhomeComponent },
 
   //Transaction
-  {path: 'transactions/:id', component: AccountDetailsComponent},
-  {path: 'fund-transfer/:id', component: TransferFundsComponent},
+  {path: 'transactions/:id', component: AccountDetailsComponent,canActivate: [AuthGuard]},
+  {path: 'fund-transfer/:id', component: TransferFundsComponent,canActivate: [AuthGuard]},
 
   //Accounts
-  {path: 'list-account/:id', component: AccountsListComponent},
-  {path: 'account-specific-detail/:id', component: AccountSpecificDetailsComponent},
-  {path: 'create-account/:id', component: createAccountComponent},
-  {path: 'delete-account/:id', component: AccountsDeleteComponent},
+  {path: 'list-account/:id', component: AccountsListComponent,canActivate: [AuthGuard]},
+  {path: 'account-specific-detail/:id', component: AccountSpecificDetailsComponent,canActivate: [AuthGuard]},
+  {path: 'create-account/:id', component: createAccountComponent,canActivate: [AuthGuard]},
+  {path: 'delete-account/:id', component: AccountsDeleteComponent,canActivate: [AuthGuard]},
 
   //Customers
   {path: 'user-home', component: UserHomeComponent},
@@ -57,9 +58,9 @@ const routes: Routes = [
   {path: 'customer-view-profile', component: CustomerViewProfileComponent,canActivate: [AuthGuard] },
 
 //Manager
-{ path: 'manager-enquiry/:enquiryId/:managerId', component: ManagerViewEnquiryComponent},
+{ path: 'manager-enquiry/:enquiryId', component: ManagerViewEnquiryComponent,canActivate: [AuthGuard]},
 
-{ path:'manager/:id', component: ManagerHomeComponent },
+{ path:'manager/:id', component: ManagerHomeComponent,canActivate: [AuthGuard] },
 
 
   //common
@@ -68,7 +69,9 @@ const routes: Routes = [
   { path: 'about', component: AboutComponent },
   { path: 'services', component: ServicesComponent },
   { path: 'contact', component: ContactComponent },
+  {path:'unauthorized',component:UnauthorizedComponent},
   { path: '**', component: PageNotFoundComponent },
+  
 ];
 
 @NgModule({

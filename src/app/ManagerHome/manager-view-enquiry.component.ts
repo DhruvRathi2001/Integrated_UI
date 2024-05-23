@@ -29,7 +29,8 @@ export class ManagerViewEnquiryComponent  implements OnInit{
 
     this.Spinner.show();
     this.enquiryId = this.currentRoute.snapshot.params["enquiryId"];
-    this.managerId = this.currentRoute.snapshot.params["managerId"];
+    const SmanagerId = window.sessionStorage.getItem('managerId');
+    this.managerId=SmanagerId ? parseInt(SmanagerId) : 0;
     console.log(this.managerId)
   
     this.apiservices.getEnquiryDetails(this.enquiryId).subscribe(
