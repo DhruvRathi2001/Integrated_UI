@@ -39,10 +39,6 @@ import { ManagerPopupComponent } from './ManagerHome/manager-popup.component';
 import { TransferFundsComponent } from './TransactionFundTransfer/transfer-funds.component';
 import { NgxSpinner, NgxSpinnerModule } from 'ngx-spinner';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { UnauthorizedComponent } from './unauthorized/unauthorized.component';
-import { ViewBeneficiaryComponent } from './Beneficiary/view-beneficiary.component';
-import { AddBeneficiaryComponent } from './Beneficiary/add-beneficiary.component';
-import { ListBeneficiaryComponent } from './Beneficiary/list-beneficiary.component';
 
 
 
@@ -86,10 +82,6 @@ import { ListBeneficiaryComponent } from './Beneficiary/list-beneficiary.compone
     ManagerViewEnquiryComponent,
     ManagerPopupComponent,
     TransferFundsComponent,
-    UnauthorizedComponent,
-    ViewBeneficiaryComponent,
-    AddBeneficiaryComponent,
-    ListBeneficiaryComponent,
 
 
   ],
