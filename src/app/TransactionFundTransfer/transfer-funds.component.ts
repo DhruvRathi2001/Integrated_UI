@@ -13,37 +13,31 @@ import { CustomerModel } from '../CustomerViewProfile/customer-view-profile.comp
 })
 export class TransferFundsComponent implements OnInit{
 
-  TransferAcc: string='';
-
+  TransferAcc: string = '';
   sourceAccountId: string = '';
   destinationAccountId: string = '';
   amount: string = '';
-  balance: string = ''; 
+  balance: string = '';
   transferSuccess: boolean = false;
   transferError: string = '';
-  custId : number = 0;
-  account: Account=<Account>{};
-
+  custId: number = 0;
+  account: Account = <Account>{};
 
   constructor(
     private transactionService: TransactionService,
     private accountsService: AccountsService,
     private route: ActivatedRoute,
-    private router: Router,
-    
-   
+    private router: Router
   ) { }
 
-  ngOnInit(){
+  ngOnInit() {
     this.route.params.subscribe(params => {
       const accountID = +params['id']; // Retrieve the account ID from the route
       this.sourceAccountId = accountID + "";
 
-      
-      this.accountsService.getAccountByAccountId(parseInt(this.sourceAccountId)).subscribe(acc=>{
-        this.account=acc;
-      })
- 
+      this.accountsService.getAccountByAccountId(parseInt(this.sourceAccountId)).subscribe(acc => {
+        this.account = acc;
+      });
     });
   }
 
@@ -53,16 +47,10 @@ export class TransferFundsComponent implements OnInit{
   }
 
   transferFunds() {
-    
-
     const sourceAccountId = parseInt(this.sourceAccountId);
     const destinationAccountId = parseInt(this.destinationAccountId);
     const amount = parseFloat(this.amount);
 
-    console.log(destinationAccountId)
-    console.log(sourceAccountId)
-    
-    console.log(this.account.balance)
     const balance = this.account.balance;
 
     if (isNaN(sourceAccountId) || isNaN(destinationAccountId) || isNaN(amount)) {
@@ -95,40 +83,35 @@ export class TransferFundsComponent implements OnInit{
       return;
     }
 
-
     this.transactionService.transferFunds(sourceAccountId, destinationAccountId, amount)
-      .subscribe(
-        {
-          next: (data) => {
-            this.transferSuccess = true;
-            this.transferError = '';
-          },
-          error: (error) => {
-            this.transferSuccess = false;
-            this.transferError = error.message;
-          }
-        });
-
+      .subscribe({
+        next: (data) => {
+          this.transferSuccess = true;
+          this.transferError = '';
+        },
+        error: (error) => {
+          this.transferSuccess = false;
+          this.transferError = error.message;
+        }
+      });
   }
 
   closeModal() {
     this.transferSuccess = false;
     this.transferError = '';
-   this.router.navigate(['/transactions', this.sourceAccountId])
+    this.router.navigate(['/transactions', this.sourceAccountId]);
   }
 
-  GoBack(){
+  GoBack() {
+    if (this.account.customerID) {
+      this.router.navigate(['/list-account', this.account.customerID]);
+    } else {
+      console.error('Customer ID is not defined');
+    }
+  }
 
-     this.router.navigate(['/list-account', this.account.customerID])
-
-    
- }
- 
- RecieveAccFromBenef(TransferAcc: string){
-
-      this.TransferAcc = TransferAcc;
-      this.destinationAccountId = this.TransferAcc
-
-      console.log("From parent", this.TransferAcc)
- }
+  RecieveAccFromBenef(TransferAcc: string) {
+    this.TransferAcc = TransferAcc;
+    this.destinationAccountId = this.TransferAcc;
+  }
 }

@@ -15,7 +15,7 @@ export class AccountDetailsComponent implements OnInit{
   accountId:number=0;
   transactions: Transaction[] = [];
   currentPage: number = 1;
-  itemsPerPage: number = 10;
+  itemsPerPage: number = 20;
   acc: Account =<Account> {};
 
   constructor(private transactionService: TransactionService,
